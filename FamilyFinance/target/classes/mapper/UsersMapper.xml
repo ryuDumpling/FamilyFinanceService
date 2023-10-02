@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ryu.familyfinance.mapper.UsersMapper">
+    <resultMap type="com.ryu.familyfinance.entity.Users" id="Users">
+        <result property="uid" column="uid"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="occupation" column="occupation"/>
+        <result property="eid" column="eid"/>
+        <result property="description" column="description"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="fid" column="fid"/>
+        <result property="isAccount" column="is_account"/>
+        <result property="deleted" column="deleted"/>
+
+        <association property="family"  javaType="com.ryu.familyfinance.entity.Family" >
+            <result property="fid" column="fid"/>
+            <result property="familyCode" column="family_code"/>
+            <result property="familyName" column="family_name"/>
+        </association>
+        <association property="education"  javaType="com.ryu.familyfinance.entity.Education" >
+            <result property="eid" column="eid"/>
+            <result property="educationCode" column="education_code"/>
+            <result property="educationName" column="education_name"/>
+        </association>
+    </resultMap>
+    <select id="ListFamilyEdu" resultMap="Users" resultType="java.lang.Long">
+        SELECT u1.uid,
+            u1.username,
+            u1.name,
+            u1.sex,
+            u1.occupation,
+            u1.eid,
+            u1.description,
+            u1.fid,
+            u1.remark,
+            u1.create_time,
+            u1.update_time,
+            u1.deleted,
+            u1.is_account,
+            f1.fid,
+            f1.family_code,
+            f1.family_name,
+            e1.eid,
+            e1.education_name,
+            e1.education_code
+        FROM t_users u1 left join t_family f1 on u1.fid = f1.fid
+                        LEFT JOIN t_education e1 on u1.eid = e1.eid
+        WHERE u1.uid = #{uid}
+    </select>
+
+    <select id="userspage" resultMap="Users" resultType="java.lang.Long">
+    SELECT u1.uid,
+    u1.username,
+    u1.name,
+    u1.sex,
+    u1.occupation,
+    u1.eid,
+    u1.description,
+    u1.fid,
+    u1.remark,
+    u1.create_time,
+    u1.update_time,
+    u1.deleted,
+    u1.is_account,
+    f1.fid,
+    f1.family_code,
+    f1.family_name,
+    e1.eid,
+    e1.education_name,
+    e1.education_code
+    FROM t_users u1 left join t_family f1 on u1.fid = f1.fid
+    LEFT JOIN t_education e1 on u1.eid = e1.eid
+    WHERE u1.deleted = 0
+    <if test="usersVo != null and usersVo.username != null and usersVo.username != ''">
+        and u1.username like #{usersVo.username}
+    </if>
+
+    <if test="usersVo != null and usersVo.name != null and usersVo.name != ''">
+        and u1.name like #{usersVo.name}
+    </if>
+    </select>
+</mapper>

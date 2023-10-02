@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ryu.familyfinance.mapper.TypeAccountMapper">
+    <resultMap type="com.ryu.familyfinance.entity.TypeAccount" id="TypeAccount">
+        <result property="ttid" column="ttid"/>
+        <result property="aid" column="aid"/>
+        <result property="accountDes" column="account_des"/>
+        <result property="accountCode" column="account_code"/>
+        <result property="accountName" column="account_name"/>
+        <result property="accrualMoney" column="accrual_money"/>
+        <result property="balanceMoney" column="balance_money"/>
+        <result property="tid" column="tid"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="divertName" column="divert_name"/>
+        <result property="divertTime" column="divert_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+</mapper>
